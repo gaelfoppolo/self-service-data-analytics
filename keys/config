@@ -1,0 +1,16 @@
+Host namenode
+Hostname internal_ip_address
+User ubuntu
+IdentityFile ~/.ssh/key.pem
+Host datanode1
+Hostname internal_ip_address
+User ubuntu
+IdentityFile ~/.ssh/key.pem
+Host datanode2
+Hostname internal_ip_address
+User ubuntu
+IdentityFile ~/.ssh/key.pem
+Host datanode3
+Hostname internal_ip_address
+User ubuntu
+IdentityFile ~/.ssh/key.pem

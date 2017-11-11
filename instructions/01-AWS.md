@@ -3,6 +3,7 @@
 ## Pre-Requisites
 
 - an AWS account
+- OpenSSH installed or any SSH client
 
 ## Setup AWS instances
 
@@ -71,4 +72,34 @@ Rename the instances as follow:
 
 ## SSH configuration
 
-*todo*
+###First connection
+
+To connect to our instances we use SSH. On the *AWS Console*, retrieve the *Public DNS*, should be something like: **ec2-19-124-171-90.eu-central-1.compute.amazonaws.com**.
+
+The default user is **ubuntu** on Ubuntu AMI OS. You can use a GUI client or a terminal. We use a terminal here. Use this command to connect: 
+
+`ssh -i path/to/your/key.pem ubuntu@ec2-19-124-171-90.eu-central-1.compute.amazonaws.com`
+
+*Note*: if you see a message like this, it is because the key you're trying to use is too accessible to users on the system. You need to restrict the access by simply run the following command: `chmod 600 path/to/your/key.pem`
+
+![01-AWS-05](img/01-AWS-05.png)
+
+Try to connect to each instances, to see if everything goes smoothly.
+
+### Files transfer
+
+In order to transfer files easily,  we are going to use SFTP, SSH for file transfer. We can use a GUI client such as FileZilla.  Add a *New Site* in FileZilla and configure as follow with the *Public DNS* and the key. Configure others settings as you like.
+
+![01-AWS-06](img/01-AWS-06.png)
+
+### Instance communication
+
+To enable simple instances interaction, we are going to add a quick *config* file. You can find a template file in the **keys** folder. Simply replace the hostnames with the *Private DNS* and the change the path of the *.pem* file if needed. 
+
+Why *Private DNS* instead of *Public DNS*? *Public DNS* changes every time you stop and then start your instance. *Private DNS* doesn't. Thanks to this trick communication will work even after stop/start.
+
+Then with your SFTP client, upload it to the `~/.ssh` folder of the *NameNode* instance. Don't forget to set the right file permission, either with the client or with a terminal: `chmod 600 path/to/your/key.pem`.
+
+Last step, we need to copy the files to the data nodes. Repeat the following command with *datanode2* and *datanode3*: `scp ~/.ssh/key.pem ~/.ssh/config datanode1:~/.ssh` 
+
+To try, simply: `ssh datanode1` and that's it!
