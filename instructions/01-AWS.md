@@ -76,9 +76,11 @@ Rename the instances as follow:
 
 To connect to our instances we use SSH. On the *AWS Console*, retrieve the *Public DNS*, should be something like: **ec2-19-124-171-90.eu-central-1.compute.amazonaws.com**.
 
-The default user is **ubuntu** on Ubuntu AMI OS. You can use a GUI client or a terminal. We use a terminal here. Use this command to connect: 
+The default user is **ubuntu** on Ubuntu AMI OS. You can either use a GUI client or a terminal. With a terminal, use this command to connect: 
 
-`ssh -i path/to/your/key.pem ubuntu@ec2-19-124-171-90.eu-central-1.compute.amazonaws.com`
+```sh
+ssh -i path/to/your/key.pem ubuntu@ec2-19-124-171-90.eu-central-1.compute.amazonaws.com
+```
 
 *Note*: if you see a message like this, it is because the key you're trying to use is too accessible to users on the system. You need to restrict the access by simply run the following command: `chmod 600 path/to/your/key.pem`
 
@@ -94,12 +96,29 @@ In order to transfer files easily,  we are going to use SFTP, SSH for file trans
 
 ### Instance communication
 
-To enable simple instances interaction, we are going to add a quick *config* file. You can find a template file in the **keys** folder. Simply replace the hostnames with the *Private DNS* and the change the path of the *.pem* file if needed. 
+At the moment, we can connect to all our instances/nodes but the nodes themselves cannot communicate between them. Indeed, Hadoop and all the associate components (YARN, HDFS, etc.) communicate throught SSH. We need to allow the master node (NameNode) to access to the slaves nodes (DataNode).
+
+But accessing via SSH requires a password, so in order to avoid having to type the password for each SSH access to nodes in the cluster, we are going to set a password-less SSH access. SSH to the master node (NameNode) and type the following commands:
+
+```sh
+# generate keys file (public and private)
+ssh-keygen -t rsa -P '' -f ~/.ssh/id_rsa
+# add the public key in the list of the authorized keys
+cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
+```
+
+Now, we need to copy the public key (`id_rsa.pub`) from the NameNode to each DataNode. You can use the SFTP client to do that. Finally, append the contents to `~/.ssh/authorized_keys` on each data node, by using the second command.
+
+#### SSH config
+
+SSH uses a configuration file located at `~/.ssh/config` for various parameters. You can find a template of this file in the **keys** folder. Set it up by substitute each node’s *Private DNS* for the HostName parameter.
 
 Why *Private DNS* instead of *Public DNS*? *Public DNS* changes every time you stop and then start your instance. *Private DNS* doesn't. Thanks to this trick communication will work even after stop/start.
 
-Then with your SFTP client, upload it to the `~/.ssh` folder of the *NameNode* instance. Don't forget to set the right file permission, either with the client or with a terminal: `chmod 600 path/to/your/key.pem`.
+To enable simple instances interaction, we are going to add a quick *config* file. You can find a template file in the **keys** folder. Simply replace the hostnames with the *Private DNS* and the change the path of the *.pem* file if needed. 
 
-Last step, we need to copy the files to the data nodes. Repeat the following command with *datanode2* and *datanode3*: `scp ~/.ssh/key.pem ~/.ssh/config datanode1:~/.ssh` 
+We need to copy this file in `~/.ssh/` folder of the NameNode. Only the master will have the private key, so only him will be able to SSH to slave nodes, and so only him can really use this file.
 
-To try, simply: `ssh datanode1` and that's it!
+![01-AWS-07](img/01-AWS-07.png)
+
+To try, from the NameNode, simply: `ssh datanode1` and that's it!

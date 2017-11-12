@@ -1,16 +1,16 @@
 Host namenode
-Hostname internal_ip_address
-User ubuntu
-IdentityFile ~/.ssh/key.pem
+	Hostname internal_ip_address
+	User ubuntu
+	IdentityFile ~/.ssh/id_rsa
 Host datanode1
-Hostname internal_ip_address
-User ubuntu
-IdentityFile ~/.ssh/key.pem
+	Hostname internal_ip_address
+	User ubuntu
+	IdentityFile ~/.ssh/id_rsa
 Host datanode2
-Hostname internal_ip_address
-User ubuntu
-IdentityFile ~/.ssh/key.pem
+	Hostname internal_ip_address
+	User ubuntu
+	IdentityFile ~/.ssh/id_rsa
 Host datanode3
-Hostname internal_ip_address
-User ubuntu
-IdentityFile ~/.ssh/key.pem
+	Hostname internal_ip_address
+	User ubuntu
+	IdentityFile ~/.ssh/id_rsa
