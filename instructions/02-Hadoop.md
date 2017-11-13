@@ -39,9 +39,36 @@ export PATH=PATH:HADOOP_HOME/bin
 
 Finally reload with: `. .profile `
 
-## Hadoop configuration
+## Hadoop cluster configuration
 
-*todo*
+This section will cover the Hadoop cluster configuration. **Four main files** must be configured in order to specify to Hadoop various configuration. Here we are going to configure it to launch in a fully distributed mode (multi nodes cluster).
+
+Each file is located in the `etc/hadoop` of the Hadoop install folder. For us the full path is : `/usr/local/hadoop/etc/hadoop`.
+
+### **core-site.xml**
+
+This file contains configuration settings for Hadoop Core (eg I/O) that are common to HDFS and MapReduce. It also informs Hadoop daemon where NameNode (the master) runs in the cluster. So each node must have this file completed.
+
+Replace these two lines with the next block, and complete the master's private IP with your own.
+
+```xml
+<configuration>
+</configuration>
+```
+
+```xml
+<configuration>
+    <property>
+        <name>fs.default.name</name>
+        <value>hdfs://<master's_private_IP>:9000</value>
+    </property>
+    <property>
+        <name>hadoop.tmp.dir</name>
+        <value>/home/ubuntu/hadooptmp</value>
+        <description>A base for other temporary directories.</description>
+    </property>
+</configuration>
+```
 
 hdfs-site.xml
 
