@@ -47,7 +47,7 @@ Each file is located in the `etc/hadoop` of the Hadoop install folder. For us th
 
 ### **core-site.xml**
 
-This file contains configuration settings for Hadoop Core (eg I/O) that are common to HDFS and MapReduce. It also informs Hadoop daemon where NameNode (the master) runs in the cluster. So each node must have this file completed.
+This file contains the configuration settings for Hadoop Core (eg I/O) that are common to HDFS and MapReduce. It also informs Hadoop daemon where NameNode (the master) runs in the cluster. So each node must have this file completed.
 
 Replace these two lines with the next block, and complete the master's private IP with your own.
 
@@ -70,9 +70,37 @@ Replace these two lines with the next block, and complete the master's private I
 </configuration>
 ```
 
-hdfs-site.xml
+### hdfs-site.xml
 
-core-site.xml
+This file contains the configuration settings for HDFS daemons: the NameNode and the DataNodes. We can specify default block replication and permission checking on HDFS.
+
+The *replication* value determine the number of each HDFS block being duplicated and distributed across the nodes in the cluster. Here we have 3 data nodes and we want to replicate data on each (maximum resilient) so we specify a factor of replication of 3.
+
+The *namenode* and *datanode* folders will be created on respectively the master node and the slaves nodes.
+
+Replace these two lines with the next block.
+
+```xml
+<configuration>
+</configuration>
+```
+
+```xml
+<configuration>
+  <property>
+    <name>dfs.replication</name>
+    <value>3</value>
+  </property>
+  <property>
+    <name>dfs.namenode.name.dir</name>
+    <value>/usr/local/hadoop/hdfs/namenode</value>
+  </property>
+  <property>
+    <name>dfs.namenode.data.dir</name>
+    <value>/usr/local/hadoop/hdfs/datanode</value>
+  </property>
+</configuration>
+```
 
 yarn-site.xml
 
