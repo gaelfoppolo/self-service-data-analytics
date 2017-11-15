@@ -41,7 +41,7 @@ Finally reload with: `. .profile `
 
 ## Hadoop cluster configuration
 
-This section will cover the Hadoop cluster configuration. **Four main files** must be configured in order to specify to Hadoop various configuration. Here we are going to configure it to launch in a fully distributed mode (multi nodes cluster).
+This section will cover the Hadoop cluster configuration. **Six main files** must be configured in order to specify to Hadoop various configuration. Here we are going to configure it to launch in a fully distributed mode (multi nodes cluster).
 
 Each file is located in the `etc/hadoop` of the Hadoop install folder. For us the full path is : `/usr/local/hadoop/etc/hadoop`.
 
@@ -69,6 +69,8 @@ Replace these two lines with the next block, and complete the master's private I
     </property>
 </configuration>
 ```
+
+Don't forget to create the `/home/ubuntu/hadooptmp`folder!
 
 ### hdfs-site.xml
 
@@ -102,6 +104,85 @@ Replace these two lines with the next block.
 </configuration>
 ```
 
-yarn-site.xml
+### mapred-site.xml
 
-mapped-site.xml
+This file contains the configuration settings for MapReduce daemons: the job tracker and the task-trackers.
+
+Since MapReduce v2, YARN became the default resource management system. YARN takes care of the resource management tasks that were performed by the MapReduce in the earlier version. This allows the MapReduce engine to take care of its own task, which is processing data.
+
+First rename `mapred-site.xml.template` to `mapred-site.xml`.
+
+Replace these two lines with the next block, to specify YARN as the default resource management system.
+
+```xml
+<configuration>
+</configuration>
+```
+
+```xml
+<configuration>
+    <property>
+        <name>mapreduce.framework.name</name>
+        <value>yarn</value>
+    </property>
+</configuration>
+```
+
+### yarn-site.xml
+
+This file contains the configuration settings for YARN. Since we specify YARN as our default resource management system, we need to configure it.
+
+The `yarn.nodemanager.aux-services` property tells NodeManagers that there will be an auxiliary service called `mapreduce.shuffle`that they need to implement. After we tell the NodeManagers to implement that service, we give it a class name as the means to implement that service. This particular configuration tells MapReduce how to do its shuffle. Because NodeManagers won’t shuffle data for a non-MapReduce job by default, we need to configure such a service for MapReduce. 
+
+Finally, we specify the **private** IP address of the master node, which doesn't change when the instances are restarted, so we don't have to update these files each time we start the cluster.
+
+Replace these two lines with the next block.
+
+```xml
+<configuration>
+</configuration>
+```
+
+```xml
+<configuration>
+  <property>
+      <name>yarn.nodemanager.aux-services</name>
+      <value>mapreduce_shuffle</value>
+  </property>
+  <property>
+      <name>yarn.nodemanager.auxservices.mapreduce.shuffle.class</name>
+      <value>org.apache.hadoop.mapred.ShuffleHandler</value>
+  </property>
+  <property>
+      <name>yarn.resourcemanager.hostname</name>
+      <value><master's_private_IP></value>
+      <description>The hostname of the Ressource Manager.</description>
+  </property>
+</configuration>
+```
+
+You can now copy these four files to each nodes, with secured copy. 
+
+```
+scp hadoop-env.sh core-site.xml hdfs-site.xml mapred-site.xml yarn-site.xml datanode1:/home/ubuntu/
+ssh datanode1
+sudo mv hadoop-env.sh core-site.xml hdfs-site.xml mapred-site.xml yarn-site.xml /usr/local/hadoop/etc/hadoop/
+```
+
+Repeat with `datanode2` and `datanode3`.
+
+### masters
+
+This file defines on which machines run the NameNode in our multi-node cluster. This is also here where we add the secondary NameNode.
+
+**On the master (NameNode) :** create the `masters` file and add the master's private IP in it.
+
+**On the slaves (DataNode) :** create the `masters` file but lets it **empy**.
+
+###slaves
+
+This file defines on which machines run the DataNodes in our multi-node cluster.
+
+**On the master (NameNode) :** create the `slaves` file and add the slaves's private IP in it, one per line, as a list.
+
+**On the slaves (DataNode) :** create the `slaves` file and add the slave's private IP of the current slave node.
