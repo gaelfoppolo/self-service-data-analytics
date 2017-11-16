@@ -19,6 +19,7 @@ Then Hadoop, download, uncompress and move it to `/usr/local/` folder.
 wget http://apache.crihan.fr/dist/hadoop/common/hadoop-2.8.2/hadoop-2.8.2.tar.gz
 sudo tar xzf hadoop-2.8.2.tar.gz 
 sudo mv hadoop-2.8.2 /usr/local/hadoop
+sudo chown -R ubuntu /usr/local/hadoop/
 ```
 
 *Note*: why `/usr/local/`? The `/usr/local` hierarchy is for use when installing software locally. It needs to be safe from being overwritten when the system software is updated. It may be used for programs and data that are shareable among a group of hosts. This is perfect for Hadoop.					
@@ -44,6 +45,18 @@ Finally reload with: `. .profile `
 This section will cover the Hadoop cluster configuration. **Six main files** must be configured in order to specify to Hadoop various configuration. Here we are going to configure it to launch in a fully distributed mode (multi nodes cluster).
 
 Each file is located in the `etc/hadoop` of the Hadoop install folder. For us the full path is : `/usr/local/hadoop/etc/hadoop`.
+
+First modify `hadoop-env.sh`:
+
+```
+export JAVA_HOME=${JAVA_HOME}
+```
+
+to
+
+```
+export JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64
+```
 
 ### **core-site.xml**
 
@@ -186,3 +199,34 @@ This file defines on which machines run the DataNodes in our multi-node cluster.
 **On the master (NameNode) :** create the `slaves` file and add the slaves's private IP in it, one per line, as a list.
 
 **On the slaves (DataNode) :** create the `slaves` file and add the slave's private IP of the current slave node.
+
+### Formating HDFS
+
+After all that configuration, it is now time to test drive the cluster. First, we need to format the HDFS file system on the NameNode. For the HDFS NameNode to start, it needs to initialize the directory  where it will hold its data. The format process will use the value assigned to `dfs.namenode.name.dir` in `etc/hadoop/hdfs-site.xml` earlier. Formatting destroys everything in the directory and sets up a new file 
+system.
+
+```sh
+/usr/local/hadoop/bin/hdfs namenode -format
+```
+
+**Do this only once!**
+
+If everything is good, should end with `Exiting with status 0` and `Shutting down NameNode`.
+
+### Starting the cluster
+
+Once formatting is successful, the HDFS and YARN services must be started.
+
+```sh
+/usr/local/hadoop/sbin/start-dfs.sh 
+/usr/local/hadoop/sbin/start-yarn.sh 
+```
+
+And to stop them:
+
+```
+/usr/local/hadoop/sbin/stop-yarn.sh 
+/usr/local/hadoop/sbin/stop-dfs.sh
+```
+
+To test if everything is good, on each node use the command `jps`. On master node, you will see master's process and on data nodes, you will see data's process.
