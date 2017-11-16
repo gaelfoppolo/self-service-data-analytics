@@ -230,3 +230,24 @@ And to stop them:
 ```
 
 To test if everything is good, on each node use the command `jps`. On master node, you will see master's process and on data nodes, you will see data's process.
+
+### Run the test program
+
+To test the installation, we can run the sample “pi” program that calculates the value of pi using a quasi-Monte Carlo method and MapReduce. The program takes two arguments, the number maps and the number of samples and submits a MapReduce job to YARN. Here an example:
+
+```sh
+hadoop jar /usr/local/hadoop/share/hadoop/mapreduce/hadoop-mapreduce-examples-2.8.2.jar pi 10 1000
+```
+
+You can also follow the job on the webpage. If the program worked correctly, the following should be displayed at the end of the program output stream:
+
+```
+Estimated value of Pi is 3.14250000000000000000
+```
+
+The JAR file contains several sample applications to test the YARN installation. Simply use the following command to the full list:
+
+```sh
+hadoop jar /usr/local/hadoop/share/hadoop/mapreduce/hadoop-mapreduce-examples-2.8.2.jar
+```
+
