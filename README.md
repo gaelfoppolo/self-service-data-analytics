@@ -26,4 +26,4 @@ All the components used in this project are surely subject to possible change, a
 
 ## License
 
-This project is licensed under the GPLv3 license, and may be redistributed under the terms specified in the [LICENSE] file.
+This project is licensed under the GPLv3 license, and may be redistributed under the terms specified in the [LICENSE](LICENSE.md) file.
