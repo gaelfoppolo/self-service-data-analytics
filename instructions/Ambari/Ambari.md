@@ -227,14 +227,55 @@ Click **Next** to continue.
 
 ## Customize Services
 
-todo
+This step presents a set of tabs that let us review and modify the cluster setup. It attempts to set reasonable defaults for each of the options.
 
-##Test Hadoop
+**Any tab that requires input shows a red badge with the number of properties that need attention.**
 
+At the moment, only two services need some information from us: Ambari Metrics and SmartSense.
+
+The tabs needing our attention, are demanding the default password of the admin account, to access this service. You can go with **admin** for both of us.
+
+![ambari-services-custom](img/ambari-services-custom.png)
+
+The others services are good with the default parameters, but can also need some custom. Please edit this part if further custom of these services is needed.
+
+Click **Next** to continue.
+
+## Review & install
+
+On the next page, we can review our installation before actually doing the install. If everything looks good to you, click **Deploy**!
+
+The progress of the install displays on the screen. Ambari installs, starts, and runs a simple test on each component. Overall status of the process displays in progress bar at the top of the screen and host-by-host status displays in the main section. **Do not refresh your browser during this process. Refreshing the browser may interrupt the progress indicators.**
+
+![ambari-deploy](img/ambari-deploy.png)
+
+When `Successfully installed and started the services` appears, choose **Next**.
+
+On the next page, we get a summary of the deployment. Hit **Complete** to land on Ambari main page, showing metrics and global status of services!
+
+![ambari-metrics](img/ambari-metrics.png)
+
+##Let's test Hadoop!
+
+Ambari allows us to monitor and manage the services but we cannot use them throught it!
+
+SSH into your master node and run the following commands to test Hadoop:
+
+```sh
+# login as root
 sudo su
+# login as hdfs, the user created by Ambari for HDFS
+sudo hdfs
+# run the test example, calc pi with 15 map and 1000 samples per map
+hadoop jar /usr/hdp/2.6.3.0-235/hadoop-mapreduce/hadoop-mapreduce-examples-2.7.3.2.6.3.0-235.jar pi 15 1000
+```
 
-sudo hfs
+You can then follow the job in the terminal
 
-`/usr/hdp/2.6.3.0-235/hadoop-mapreduce`
+![hadoop-test-terminal](img/hadoop-test-terminal.png)
 
-`hadoop jar /usr/hdp/2.6.3.0-235/hadoop-mapreduce/hadoop-mapreduce-examples-2.7.3.2.6.3.0-235.jar pi 15 1000`
+but also in the browser by accessing: `<public DNS master node>::8088`
+
+![hadoop-web](img/hadoop-web.png)
+
+*Bonus*: you can also view the job on data nodes, by accessing: `<public DNS data node::8042>`.
