@@ -29,8 +29,20 @@ To start small, we will need **6 EC2 instances**, running **Ubuntu Server 16.04 
 Create the instance, according to the specs in the table. SSH into it and run the following commands:
 
 ```sh
+# install requirements
+sudo apt-get install curl
+sudo apt-get install unzip
+sudo apt-get install openssl
+sudo apt-get install tar
+sudo apt-get install wget
+sudo apt-get install python
+sudo apt-get install ntp
+# configure ntp
+sudo update-rc.d ntp defaults
+sudo update-rc.d ntp enable
+sudo /etc/init.d/ntp start
 # add the repo & update
-sudo wget -O /etc/apt/sources.list.d/ambari.list http://public-repo-1.hortonworks.com/ambari/ubuntu16/2.x/updates/2.5.1.0/ambari.list
+sudo wget -O /etc/apt/sources.list.d/ambari.list http://public-repo-1.hortonworks.com/ambari/ubuntu16/2.x/updates/2.6.0.0/ambari.list
 sudo apt-key adv --recv-keys --keyserver keyserver.ubuntu.com B9733A7A07513CAD
 sudo apt-get update
 # install the server
@@ -45,10 +57,16 @@ sudo ambari-server setup
 
 | Question                                 | Response |
 | ---------------------------------------- | -------- |
-| Customize user account for ambari-server daemon | N        |
+| Customize user account for ambari-server daemon | n        |
 | Enter choice                             | 1        |
-| License                                  | Y        |
-| Enter advanced database configuration    | N        |
+| License                                  | y        |
+| Enter advanced database configuration    | n        |
+
+By default Ambari uses port 8080 for access to Ambari (Web and REST API). Personnaly, I prefer to use the regular web port, 80. If you wish to change the port number, you need to edit the Ambari properties file, by adding the property `client.api.port=80`:
+
+```sh
+echo "client.api.port=80" | sudo tee -a /etc/ambari-server/conf/ambari.properties
+```
 
 Finally launch the server with:
 
@@ -56,7 +74,22 @@ Finally launch the server with:
 sudo ambari-server start
 ```
 
-Wait that the launch complete. Then, you can go to the web interface: `<public DNS>:8080`
+Wait that the launch complete with success.
+
+### SSH communication
+
+At the moment, we can connect to all our instances/nodes but the nodes themselves cannot communicate between them. Indeed, Ambari Server communicate throught SSH. We need to allow the Ambari Server node to access to the slaves nodes (with Ambari Agents).
+
+Also Ambari Server need a password-less SSH access to work. Still on the Ambari Server type the following commands:
+
+```sh
+# generate keys file (public and private)
+ssh-keygen -t rsa -P '' -f ~/.ssh/id_rsa
+# add the public key in the list of the authorized keys
+cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
+```
+
+Now, we need to copy the public key (`id_rsa.pub`) from the Ambari Server to each slavesnodes. You can use the `scp` to do that. Finally, append the contents to `~/.ssh/authorized_keys` on each data node, by using the second command.
 
 ## The clients
 
@@ -67,14 +100,10 @@ First, create an instance, with the type you want (eg:  t2.micro), running **Ubu
 SSH into it and run the following commands:
 
 ```sh
-# add the repo & update
-sudo wget -O /etc/apt/sources.list.d/ambari.list http://public-repo-1.hortonworks.com/ambari/ubuntu16/2.x/updates/2.5.1.0/ambari.list
-sudo apt-key adv --recv-keys --keyserver keyserver.ubuntu.com B9733A7A07513CAD
-sudo apt-get update
-# install the agent
-sudo apt-get install ambari-agent
-# install ntp and configure it
+# install requirements
 sudo apt-get install ntp
+sudo apt-get install python
+# configure ntp
 sudo update-rc.d ntp defaults
 sudo update-rc.d ntp enable
 sudo /etc/init.d/ntp start
@@ -104,7 +133,15 @@ We have all our nodes, we can now begin the real install!
 
 ## Install the cluster
 
-todo
+In this part, we are only going to use the browser, we are done with the terminal.
+
+We can access the Ambari Install Wizard through the browser, to `http://<public DNS of your Ambari server>`.
+
+We should now be on the login page of Ambari Server. Log in using the default username/password: **admin/admin**. We can change this later to whatever we wish.
+
+// insert image wizard
+
+Click **Launch Install Wizard**
 
 ##Test Hadoop
 
