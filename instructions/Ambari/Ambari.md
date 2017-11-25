@@ -76,21 +76,6 @@ sudo ambari-server start
 
 Wait that the launch complete with success.
 
-### SSH communication
-
-At the moment, we can connect to all our instances/nodes but the nodes themselves cannot communicate between them. Indeed, Ambari Server communicate throught SSH. We need to allow the Ambari Server node to access to the slaves nodes (with Ambari Agents).
-
-Also Ambari Server need a password-less SSH access to work. Still on the Ambari Server type the following commands:
-
-```sh
-# generate keys file (public and private)
-ssh-keygen -t rsa -P '' -f ~/.ssh/id_rsa
-# add the public key in the list of the authorized keys
-cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
-```
-
-Now, we need to copy the public key (`id_rsa.pub`) from the Ambari Server to each slavesnodes. You can use the `scp` to do that. Finally, append the contents to `~/.ssh/authorized_keys` on each data node, by using the second command.
-
 ## The clients
 
 We are going to create a template instance, that we can replicate, and dodge the painless initial setup for each client.
@@ -100,6 +85,9 @@ First, create an instance, with the type you want (eg:  t2.micro), running **Ubu
 SSH into it and run the following commands:
 
 ```sh
+# add key and update
+sudo apt-key adv --recv-keys --keyserver keyserver.ubuntu.com B9733A7A07513CAD
+sudo apt-get update
 # install requirements
 sudo apt-get install ntp
 sudo apt-get install python
@@ -107,6 +95,37 @@ sudo apt-get install python
 sudo update-rc.d ntp defaults
 sudo update-rc.d ntp enable
 sudo /etc/init.d/ntp start
+```
+
+### SSH communication
+
+At the moment, we can connect to all our instances/nodes but the nodes themselves cannot communicate between them. Indeed, Ambari Server communicate throught SSH. We need to allow the Ambari Server node to access to the slaves nodes (with Ambari Agents).
+
+Also Ambari Server need a password-less SSH access to work. On the Ambari Server type the following command:
+
+```sh
+# generate keys file (public and private)
+ssh-keygen -t rsa -P '' -f ~/.ssh/id_rsa
+```
+
+Now, we need to copy the public key (`id_rsa.pub`) from the Ambari Server to the template slave node. You can use the `scp` to do that. After closing the SSH connection:
+
+```sh
+scp -i key.pem ubuntu@<public DNS ambari server>:~/.ssh/id_rsa.pub .
+# also copy the private key, we need it later
+scp -i key.pem ubuntu@<public DNS ambari server>:~/.ssh/id_rsa .
+```
+
+Then copy this to the template slave node:
+
+```sh
+scp -i key.pem id_rsa.pub ubuntu@<public DNS slave node>:~/.ssh/
+```
+
+Finally, append the contents to `~/.ssh/authorized_keys` on the template slave node, by using:
+
+```sh
+cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
 ```
 
 We now have our template. Let's create an image of this template.
@@ -139,9 +158,76 @@ We can access the Ambari Install Wizard through the browser, to `http://<public 
 
 We should now be on the login page of Ambari Server. Log in using the default username/password: **admin/admin**. We can change this later to whatever we wish.
 
-// insert image wizard
+![ambari-wizard](img/ambari-wizard.png)
 
-Click **Launch Install Wizard**
+Click **Launch Install Wizard**.
+
+Choose the name of your cluster.
+
+On the next page, **Select Version**, no need to modify anything, simply go **Next**.
+
+On **Install Options**, we need to fill a couple of information:
+
+- Target Hosts: enter the **private DNS** of each slave nodes, one per line
+- Host Registration Information: select the private key (`id_rsa`) we downloaded before.
+- SSH User Account: change to `ubuntu`
+
+![ambari-install-options](img/ambari-install-options.png)
+
+Click **Register and Confirm** to continue.
+
+Wait during the registering process. At a couple of minutes, the status of all host should be **Success**. Click **Next**.
+
+### Services
+
+On the next page, we choose the services we want to install in our cluster. Don't worry we will be able to add new service after initial setup. For starter, only select the following services:
+
+- HDFS
+- YARN + MapReduce2
+- ZooKeeper
+- Ambari Infra
+- Ambari Metrics
+
+Click **Next** to confirm the selection.
+
+### Master
+
+On the next page, we assign master components to hosts you want to run them on.
+
+I recommand to split on the two masters instances (Master and SecondaryMaster) first. We can review this assignment if needed in the future.
+
+|          Services          |      Where      |
+| :------------------------: | :-------------: |
+|         SNameNode          | SecondaryMaster |
+|          NameNode          |     Master      |
+| App Timeline Server (YARN) |     Master      |
+|      ResourceManager       |     Master      |
+| History Server (MapReduce) |     Master      |
+|      ZooKeeper Server      |     Master      |
+|    Infra Solr Instance     | SecondaryMaster |
+|     Metrics Collector      | SecondaryMaster |
+|          Grafana           | SecondaryMaster |
+|     Activity Analyzer      | SecondaryMaster |
+|     Activity Explorer      | SecondaryMaster |
+|         HST Server         | SecondaryMaster |
+
+When you are satisfied with the assignments, choose **Next**.
+
+## Slaves
+
+On the next page, we assign slave components to hosts you want to run them on.
+
+I recommand to install on the three instances that we choose to be our data nodes (without the *✵* in the list):
+
+- DataNode
+- NodeManager
+- Client
+
+Click **Next** to continue.
+
+## Customize Services
+
+todo
 
 ##Test Hadoop
 
