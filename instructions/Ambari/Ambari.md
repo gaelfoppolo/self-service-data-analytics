@@ -265,7 +265,7 @@ SSH into your master node and run the following commands to test Hadoop:
 # login as root
 sudo su
 # login as hdfs, the user created by Ambari for HDFS
-sudo hdfs
+su - hdfs
 # run the test example, calc pi with 15 map and 1000 samples per map
 hadoop jar /usr/hdp/2.6.3.0-235/hadoop-mapreduce/hadoop-mapreduce-examples-2.7.3.2.6.3.0-235.jar pi 15 1000
 ```
