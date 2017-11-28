@@ -4,7 +4,7 @@ How to install Ambari on AWS and deploy/manage your Hadoop cluster.
 
 ## Pre-Requisites
 
-- 01-AWS completed
+- 01-AWS completed, to know how to launch & config EC2 instances
 - OpenSSH installed or any SSH client
 
 ## What will we do?
@@ -279,3 +279,13 @@ but also in the browser by accessing: `<public DNS master node>::8088`
 ![hadoop-web](img/hadoop-web.png)
 
 *Bonus*: you can also view the job on data nodes, by accessing: `<public DNS data node::8042>`.
+
+## Autostart of services
+
+We can configure Ambari to autostart the services automatically when started.
+
+In Ambari web interface, go to **Admin** > **Service auto start**.
+
+Simply **Enable all** component for each service and **Save**.
+
+Now, when you will start your instances, Ambari will automatically boot all the services for you :tada:
