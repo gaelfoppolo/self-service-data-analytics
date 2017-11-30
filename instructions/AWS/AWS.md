@@ -13,7 +13,7 @@ We are going to create an EC2 instance using the latest Ubuntu Server as OS.
 
 Go to AWS Console, choose the EC2 service. On the EC2 Dashboard, click on **Launch Instance**. You can check *Free tier only* if you like. In the list select the latest Ubuntu Server. Currently, it's 16.04 LTS.
 
-![01-AWS-01](img/01-AWS-01.png)
+![AWS-01](img/AWS-01.png)
 
 ### Instance type
 
@@ -21,13 +21,13 @@ Choose the **t2.micro** instance type. It is enough for our purposes at the mome
 
 Choose a subnet. The last option is useful if we want to scale manually our cluster later. Leave others options as they are. Click on *Next: Add Storage*.
 
-![01-AWS-02](img/01-AWS-02.png)
+![AWS-02](img/AWS-02.png)
 
 ### Storage
 
 Default is 8Gb, and it's fine for our purpose at the moment. We can increase the size of the EBS volume later so that's ok.
 
-![01-AWS-03](img/01-AWS-03.png)
+![AWS-03](img/AWS-03.png)
 
 _Note_: you can also uncheck **Delete on Termination** if you want to keep your data after terminating the EC2 instance.
 
@@ -45,7 +45,7 @@ This step lets us define rules regarding the incoming or outgoing access of the 
 
 Select *Create a new security group* name it as you like (eg: *HadoopSecurityGroup*) and give it a useful description. For the purpose of testing, we are going to open everything to avoid network errors. Configure as the following image:
 
-![01-AWS-04](img/01-AWS-04.png)
+![AWS-04](img/AWS-04.png)
 
 *todo: configure the security group with restricting rules*
 
@@ -73,7 +73,7 @@ ssh -i path/to/your/key.pem ubuntu@ec2-19-124-171-90.eu-central-1.compute.amazon
 
 *Note*: if you see a message like this, it is because the key you're trying to use is too accessible to users on the system. You need to restrict the access by simply run the following command: `chmod 600 path/to/your/key.pem`
 
-![01-AWS-05](img/01-AWS-05.png)
+![AWS-05](img/AWS-05.png)
 
 ## Files transfer
 
@@ -81,7 +81,7 @@ ssh -i path/to/your/key.pem ubuntu@ec2-19-124-171-90.eu-central-1.compute.amazon
 
 In order to transfer files easily,  we cane use SFTP, SSH for file transfer. We can use a GUI client such as FileZilla.  Add a *New Site* in FileZilla and configure as follow with the *Public DNS* and the key. Configure others settings as you like.
 
-![01-AWS-06](img/01-AWS-06.png)
+![AWS-06](img/AWS-06.png)
 
 ### SCP
 
