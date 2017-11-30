@@ -7,7 +7,7 @@
 
 ## Setup AWS instances
 
-We are going to create EC2 instances using the latest Ubuntu Server as OS.
+We are going to create EC2 instance using the latest Ubuntu Server as OS.
 
 ###Select instance
 
@@ -27,7 +27,7 @@ Change the number of instance to 4 and choose a subnet. The last option is usefu
 
 Default is 8Gb, and it's fine for our purpose at the moment. We can increase the size of the EBS volume later so that's ok.
 
-Also don't forget to uncheck **Delete on Termination** as we want to keep our data after stopping our EC2 instances.
+Also don't forget to uncheck **Delete on Termination** as we want to keep our data after terminating our EC2 instances.
 
 ![01-AWS-03](img/01-AWS-03.png)
 
@@ -115,7 +115,12 @@ SSH uses a configuration file located at `~/.ssh/config` for various parameters.
 
 Why *Private DNS* instead of *Public DNS*? *Public DNS* changes every time you stop and then start your instance. *Private DNS* doesn't. Thanks to this trick communication will work even after stop/start.
 
-To enable simple instances interaction, we are going to add a quick *config* file. You can find a template file in the **keys** folder. Simply replace the hostnames with the *Private DNS* and the change the path of the *.pem* file if needed. 
+To enable simple instances interaction, we are going to add a quick *config* file. 
+
+You can find a template of this file (`config`) in the **keys** folder. Simply replace, for each `Host` in the file:
+
+- the `internal_ip_address` with the actual *Private DNS*
+- (optional) the path of the private key  (`id_rsa`) if needed.
 
 We need to copy this file in `~/.ssh/` folder of the NameNode. Only the master will have the private key, so only him will be able to SSH to slave nodes, and so only him can really use this file.
 
