@@ -23,5 +23,5 @@ Wait until the status of your image is **available**.
 
 We now have our image. Let's use it. Two ways.
 
-- from the list of your AMIs: select the AMI and click **Launch**. You can then change the details like any instance before lauching.
+- from the list of your AMIs: select the AMI and click **Launch**. You can then change the details like any instance before launching.
 - from EC2 instances list: when you choose the OS, on the left side you can select **My AMIs** and chose your image

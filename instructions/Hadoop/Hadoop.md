@@ -33,7 +33,7 @@ sudo mv hadoop-2.8.2 /usr/local/hadoop
 sudo chown -R ubuntu /usr/local/hadoop/
 ```
 
-*Note*: why `/usr/local/`? The `/usr/local` hierarchy is for use when installing software locally. It needs to be safe from being overwritten when the system software is updated. It may be used for programs and data that are shareable among a group of hosts. This is perfect for Hadoop.					
+*Note*: why `/usr/local/`? The `/usr/local` hierarchy is use when installing software locally. It needs to be safe from being overwritten when the system software is updated. It may be used for programs and data that are shareable among a group of hosts. This is perfect for Hadoop.					
 
 ###Global configuration
 
@@ -187,9 +187,9 @@ Replace these two lines with the next block.
 
 ### SSH configuration
 
-Before creating the AMI, we have still one step to do. 
+Before creating the AMI, we still have one step to do. 
 
-After the creation of the instances from the AMI, we will be able to connect to all our instances/nodes but the nodes themselves will not be able to communicate between them. Indeed, Hadoop and all the associate components (YARN, HDFS, etc.) communicate throught SSH. We need to allow the master node (NameNode) to access to the slaves nodes (DataNode).
+After the creation of the instances from the AMI, we will be able to connect to all our instances/nodes but the nodes themselves will not be able to communicate between them. Indeed, Hadoop and all the associate components (YARN, HDFS, etc.) communicate through SSH. We need to allow the master node (NameNode) to access to the slaves nodes (DataNode).
 
 But accessing via SSH requires a password, so in order to avoid having to type the password for each SSH access to nodes in the cluster, we are going to set a password-less SSH access. Still on the master instance, type the following commands:
 

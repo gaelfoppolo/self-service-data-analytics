@@ -55,7 +55,7 @@ Review the information again and click *Launch*.
 
 ## Key pair
 
-We need to create a key pair in order to connect to our instance securely, here throught SSH.
+We need to create a key pair in order to connect to our instance securely, here through SSH.
 
 Select *Create a new key pair* from the first dropbox, give a name to the key pair (eg: *hadoopec2cluster*) and download it. As mentioned on the AWS Console, we will not be able to download the file again after it's created, so save it in a secure location. You can store it in the **keys** folder of this repository, it will not be committed.
 
