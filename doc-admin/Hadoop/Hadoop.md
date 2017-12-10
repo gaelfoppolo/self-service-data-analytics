@@ -227,7 +227,7 @@ Why *Private DNS* instead of *Public DNS*? *Public DNS* changes every time you s
 
 To enable simple instances interaction, we are going to add a quick *config* file. 
 
-You can find a template of this file (`config`) in the **keys** folder. Simply replace, for each `Host` in the file:
+You can find a template of this file (`config.template`) in the **template** folder. Simply rename it to `config` and replace, for each `Host` in the file:
 
 - the `internal_ip_address` with the actual *Private DNS*
 - (optional) the path of the private key  (`id_rsa`) if needed.
