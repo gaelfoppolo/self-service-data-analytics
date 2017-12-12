@@ -63,6 +63,59 @@ sudo chown -R ubuntu:ubuntu /usr/local/hue
 
 ## Configuration
 
+### HDFS
+
+Go to Ambari, choose the HDFS service, tab _Configs_, subtab _Advanced_.
+
+#### WebHDFS
+
+In the section _General_, ensure WebHDFS is enabled.
+
+#### Proxy user
+
+In the section _Custom core-site_ section. Add the following properties by clicking on _Add Property_ at the bottom:
+
+```xml
+hadoop.proxyuser.hue.groups=*
+hadoop.proxyuser.hue.hosts=*
+```
+
+#### ACLS (optional)
+
+In the section _Custom hdfs-site_ section. Add the following properties by clicking on _Add Property_ at the bottom:
+
+```xml
+dfs.namenode.acls.enabled=true
+```
+
+### Oozie
+
+Go to Ambari, choose the Oozie service, tab _Configs_, subtab _Advanced_.
+
+#### Proxy user
+
+In the section _Custom oozie-site_ section. Add the following properties by clicking on _Add Property_ at the bottom:
+
+```xml
+oozie.service.ProxyUserService.proxyuser.hue.groups=*
+oozie.service.ProxyUserService.proxyuser.hue.hosts=*
+```
+
+### Hive
+
+Go to Ambari, choose the Hive service, tab _Configs_, subtab _Advanced_.
+
+#### Proxy user
+
+In the section _Custom webhchat-site_ section. Add the following properties by clicking on _Add Property_ at the bottom:
+
+```xml
+webhcat.proxyuser.hue.groups=*
+webhcat.proxyuser.hue.hosts=*
+```
+
+
+
 //todo
 
 ## Launch!
