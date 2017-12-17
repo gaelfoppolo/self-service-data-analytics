@@ -34,13 +34,13 @@ class HueServer(Script):
           },
           user=params.hue_user
     )
-    Execute ('ps -ef | grep hue | grep supervisor | grep -v grep | awk \'{print $2}\' > ' + params.hue_server_pid_file, user=params.hue_user)
+    Execute ('ps -ef | grep hue | grep supervisor | awk \'{print $2}\' > ' + params.hue_server_pid_file, user=params.hue_user)
 
   def stop(self, env):
     import params
     env.set_params(params)
     # Kill the process of Hue
-    Execute ('ps -ef | grep hue | grep -v grep | awk  \'{print $2}\' | xargs kill -9', user=params.hue_user, ignore_failures=True)
+    Execute ('ps -ef | grep hue | awk  \'{print $2}\' | xargs kill -9', user=params.hue_user, ignore_failures=True)
     File(params.hue_server_pid_file,
       action = "delete",
       owner = params.hue_user
