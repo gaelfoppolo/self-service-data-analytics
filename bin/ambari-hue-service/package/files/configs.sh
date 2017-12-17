@@ -37,7 +37,7 @@ usage () {
 
 USERID="admin"
 PASSWD="admin"
-PORT=":8080"
+PORT=":80"
 SSL_URL_PREFIX=""
 
 if [ "$1" == "-u" ] ; then
