@@ -72,6 +72,7 @@
 	      <package><name>ant</name></package>
 	      <package><name>gcc</name></package>
 	      <package><name>g++</name></package>
+	      <package><name>libffi-dev</name></package>
 	      <package><name>libkrb5-dev</name></package>
 	      <package><name>libmysqlclient-dev</name></package>
 	      <package><name>libssl-dev</name></package>
@@ -87,6 +88,7 @@
 	      <package><name>python-dev</name></package>
 	      <package><name>python-setuptools</name></package>
 	      <package><name>libgmp3-dev</name></package>
+	      <package><name>default-jdk</name></package>
         </packages>
 	  </osSpecific>
 	</osSpecifics>
