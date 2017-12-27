@@ -29,11 +29,7 @@ sudo ambari-server restart
 We also need to fix the encoding:
 
 ```shell
-sudo tee -a /usr/lib/python2.6/site-packages/resource_management/core/sudo.py <<EOF
-import sys
-reload(sys)
-sys.setdefaultencoding('utf-8') 
-EOF
+sudo sed -i "1s;^;import sys\nreload(sys)\nsys.setdefaultencoding('utf-8')\n;" /usr/lib/python2.6/site-packages/resource_management/core/sudo.py
 ```
 
 ## Configuration
