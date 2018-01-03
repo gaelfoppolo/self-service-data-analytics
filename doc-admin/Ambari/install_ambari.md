@@ -22,7 +22,7 @@ This document offers two configuration, **the small** and **the complete**.
 The following document will refer to information in additionnal section, so please use the information of the proprer document referring to the configuration you choose:
 
 - [_The small_](./small_install.md)
-- todo
+- The complete (todo)
 
 ## What will we need?
 

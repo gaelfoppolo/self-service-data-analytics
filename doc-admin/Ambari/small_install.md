@@ -1,4 +1,4 @@
-# Configuration 1: small install
+# Small install
 
 This document contains the information used for the install of a cluster with the minimum of services. This way you can familiarize with Ambari.
 
@@ -6,14 +6,14 @@ This document contains the information used for the install of a cluster with th
 
 We will need **6 EC2 instances**, running **Ubuntu Server 16.04 LTS**.
 
-|     Purpose     |   Type    | Storage |
-| :-------------: | :-------: | :-----: |
-|  Ambari Server  | t2.medium |  15Gb   |
-|     Master      | t2.medium |  15Gb   |
-| SecondaryMaster | t2.medium |  15Gb   |
-|    DataNode1    | t2.small  |  15Gb   |
-|    DataNode2    | t2.small  |  15Gb   |
-|    DataNode3    | t2.small  |  15Gb   |
+|   Name    |     Purpose     |   Type    | Storage |
+| :-------: | :-------------: | :-------: | ------- |
+|  Ambari   |  Ambari Server  | t2.medium | 15Gb    |
+| Master #1 |     Master      | t2.medium | 15Gb    |
+| Master #2 | SecondaryMaster | t2.medium | 15Gb    |
+| Client #1 |    DataNode1    | t2.small  | 15Gb    |
+| Client #2 |    DataNode2    | t2.small  | 15Gb    |
+| Client #3 |    DataNode3    | t2.small  | 15Gb    |
 
 ## Services list
 
@@ -29,24 +29,24 @@ Only select the following services:
 
 I recommand to split on the two masters instances (Master and SecondaryMaster) first. We can review this assignment if needed in the future.
 
-|          Services          |      Where      |
-| :------------------------: | :-------------: |
-|         SNameNode          | SecondaryMaster |
-|          NameNode          |     Master      |
-| App Timeline Server (YARN) |     Master      |
-|      ResourceManager       |     Master      |
-| History Server (MapReduce) |     Master      |
-|      ZooKeeper Server      |     Master      |
-|    Infra Solr Instance     | SecondaryMaster |
-|     Metrics Collector      | SecondaryMaster |
-|          Grafana           | SecondaryMaster |
-|     Activity Analyzer      | SecondaryMaster |
-|     Activity Explorer      | SecondaryMaster |
-|         HST Server         | SecondaryMaster |
+|          Services          |   Where   |
+| :------------------------: | :-------: |
+|         SNameNode          | Master #2 |
+|          NameNode          | Master #1 |
+| App Timeline Server (YARN) | Master #1 |
+|      ResourceManager       | Master #1 |
+| History Server (MapReduce) | Master #1 |
+|      ZooKeeper Server      | Master #1 |
+|    Infra Solr Instance     | Master #2 |
+|     Metrics Collector      | Master #2 |
+|          Grafana           | Master #2 |
+|     Activity Analyzer      | Master #2 |
+|     Activity Explorer      | Master #2 |
+|         HST Server         | Master #2 |
 
 ## Slaves assignations list
 
-I recommand to install on the three instances that we choose to be our data nodes (without the *✵* in the list):
+I recommand to install on the three instances that we choose to be our data nodes (without the *✵* in the list), the following:
 
 - DataNode
 - NodeManager
@@ -54,7 +54,7 @@ I recommand to install on the three instances that we choose to be our data node
 
 ## Customize services list
 
-At the moment, only two services need some information from us: Ambari Metrics and SmartSense.
+At the moment, only two services need some information from us: *Ambari Metrics* and *SmartSense*.
 
 The tabs needing our attention, are demanding the default password of the admin account, to access this service. You can go with **admin** for both of us.
 
