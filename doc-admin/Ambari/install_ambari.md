@@ -11,26 +11,32 @@ How to install Ambari on AWS and deploy/manage your Hadoop cluster.
 
 First we are going to create the instances we need. Then we will launch the install and config the components.
 
+## Choose your configuration
+
+This document offers two configuration, **the small** and **the complete**.
+
+**The small** install the cluster with the minimum of services needed. This way you can familiarize with Ambari.
+
+**The complete** install the cluster with all of the services we choosen for our architecture.
+
+The following document will refer to information in additionnal section, so please use the information of the proprer document referring to the configuration you choose:
+
+- [_The small_](./small_install.md)
+- The complete (todo)
+
 ## What will we need?
 
-To start small, we will need **6 EC2 instances**, running **Ubuntu Server 16.04 LTS**. Don't create them now, but keep this table for future reference.
+See the _Nodes list_ section.
 
-|     Purpose     |   Type    | Storage |
-| :-------------: | :-------: | :-----: |
-|  Ambari Server  | t2.medium |  15Gb   |
-|     Master      | t2.medium |  15Gb   |
-| SecondaryMaster | t2.medium |  15Gb   |
-|    DataNode1    | t2.small  |  15Gb   |
-|    DataNode2    | t2.small  |  15Gb   |
-|    DataNode3    | t2.small  |  15Gb   |
+Don't create them now, but keep this table for future reference.
 
 ## Create cluster
 
 Report to the document [_Create templates_](./create_templates.md) to create the server and the client template.
 
-Then, according to the specs in the table, create the instances we need (1 server, 2 master, 3 data nodes).
+Then, according to the specs in the table, create the instances we need.
 
-You should have something like this:
+You should have something like this (for the small configuration):
 
 ![list-instances](img/list-instances.png)
 
@@ -54,7 +60,7 @@ On the next page, **Select Version**, no need to modify anything, simply go **Ne
 
 On **Install Options**, we need to fill a couple of information:
 
-- Target Hosts: enter the **private DNS** of each slave nodes, one per line
+- Target Hosts: enter the **private DNS** of each Ambari Client nodes, one per line
 - Host Registration Information: select the private key (`id_rsa`) we downloaded before.
 - SSH User Account: change to `ubuntu`
 
@@ -66,36 +72,17 @@ Wait during the registering process. At a couple of minutes, the status of all h
 
 ### Services
 
-On the next page, we choose the services we want to install in our cluster. Don't worry we will be able to add new service after initial setup. For starter, only select the following services:
+On the next page, we choose the services we want to install in our cluster. Don't worry we will be able to add new service after initial setup. 
 
-- HDFS
-- YARN + MapReduce2
-- ZooKeeper
-- Ambari Infra
-- Ambari Metrics
+Please refer to the _Services list_ section.
 
 Click **Next** to confirm the selection.
 
-### Master
+### Masters
 
 On the next page, we assign master components to hosts you want to run them on.
 
-I recommand to split on the two masters instances (Master and SecondaryMaster) first. We can review this assignment if needed in the future.
-
-|          Services          |      Where      |
-| :------------------------: | :-------------: |
-|         SNameNode          | SecondaryMaster |
-|          NameNode          |     Master      |
-| App Timeline Server (YARN) |     Master      |
-|      ResourceManager       |     Master      |
-| History Server (MapReduce) |     Master      |
-|      ZooKeeper Server      |     Master      |
-|    Infra Solr Instance     | SecondaryMaster |
-|     Metrics Collector      | SecondaryMaster |
-|          Grafana           | SecondaryMaster |
-|     Activity Analyzer      | SecondaryMaster |
-|     Activity Explorer      | SecondaryMaster |
-|         HST Server         | SecondaryMaster |
+Please refer to the _Masters assignations list_ section.
 
 When you are satisfied with the assignments, choose **Next**.
 
@@ -103,11 +90,7 @@ When you are satisfied with the assignments, choose **Next**.
 
 On the next page, we assign slave components to hosts you want to run them on.
 
-I recommand to install on the three instances that we choose to be our data nodes (without the *✵* in the list):
-
-- DataNode
-- NodeManager
-- Client
+Please refer to the _Slaves assignations list_ section.
 
 Click **Next** to continue.
 
@@ -117,13 +100,7 @@ This step presents a set of tabs that let us review and modify the cluster setup
 
 **Any tab that requires input shows a red badge with the number of properties that need attention.**
 
-At the moment, only two services need some information from us: Ambari Metrics and SmartSense.
-
-The tabs needing our attention, are demanding the default password of the admin account, to access this service. You can go with **admin** for both of us.
-
-![ambari-services-custom](img/ambari-services-custom.png)
-
-The others services are good with the default parameters, but can also need some custom. Please edit this part if further custom of these services is needed.
+Please refer to the _Customize services list_ section.
 
 Click **Next** to continue.
 
@@ -154,5 +131,3 @@ Now, when you will start your instances, Ambari will automatically boot all the 
 ## Where to go?
 
 Report to the document [_Let's test Hadoop!_](./hadoop_test.md) to test your cluster installation.
-
-*todo: add new services*
