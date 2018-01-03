@@ -1,6 +1,6 @@
 # Install Hue
 
-How to install Hue standalone.
+How to install Hue service on Ambari.
 
 ## Pre-Requisites
 
@@ -135,4 +135,6 @@ Hit *Next*, then *Deploy*. Wait while Hue is being installed!
 When `Successfully installed and started the services` appears, choose **Next** and then **Complete**.
 
 You can now restart all the services that need it, from the landing page of Ambari.
+
+_Note: don't forget to enable autostart of Hue service in **Admin** > **Service auto start**_
 
