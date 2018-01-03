@@ -6,14 +6,14 @@ This document contains the information used for the install of a cluster with th
 
 We will need **6 EC2 instances**, running **Ubuntu Server 16.04 LTS**.
 
-|   Name    |     Purpose     |   Type    | Storage |
-| :-------: | :-------------: | :-------: | ------- |
-|  Ambari   |  Ambari Server  | t2.medium | 15Gb    |
-| Master #1 |     Master      | t2.medium | 15Gb    |
-| Master #2 | SecondaryMaster | t2.medium | 15Gb    |
-| Client #1 |    DataNode1    | t2.small  | 15Gb    |
-| Client #2 |    DataNode2    | t2.small  | 15Gb    |
-| Client #3 |    DataNode3    | t2.small  | 15Gb    |
+|   Name    |              Purpose               |   Type    | Storage |
+| :-------: | :--------------------------------: | :-------: | ------- |
+|  Ambari   |           Ambari Server            | t2.medium | 15Gb    |
+| Master #1 |   Name Node + YARN + Map Reduce    | t2.medium | 15Gb    |
+| Master #2 | Secondary Name Node + Ambari Infra | t2.medium | 15Gb    |
+| Client #1 |      Data Node + Node Manager      | t2.small  | 15Gb    |
+| Client #2 |      Data Node + Node Manager      | t2.small  | 15Gb    |
+| Client #3 |      Data Node + Node Manager      | t2.small  | 15Gb    |
 
 ## Services list
 

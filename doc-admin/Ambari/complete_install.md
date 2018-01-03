@@ -4,14 +4,12 @@ This document contains the information used for the install of a cluster with ev
 
 ## Nodes list
 
-todo
-
 We will need **8 EC2 instances**, running **Ubuntu Server 16.04 LTS**.
 
 |   Name    |                 Purpose                  |   Type    | Storage |
 | :-------: | :--------------------------------------: | :-------: | ------- |
 |  Ambari   |              Ambari Server               | t2.medium | 15Gb    |
-| Master #1 |         NameNode + Spark Server          | t2.large  | 15Gb    |
+| Master #1 |         Name Node + Spark Server         | t2.large  | 15Gb    |
 | Master #2 | Secondary Name Node + YARN + Map Reduce  | t2.large  | 15Gb    |
 | Master #3 | Hive Server + Oozie Server + Atlas Server + HBase Master + Knox | t2.large  | 15Gb    |
 | Master #4 |                Hue Server                | t2.medium | 15Gb    |
