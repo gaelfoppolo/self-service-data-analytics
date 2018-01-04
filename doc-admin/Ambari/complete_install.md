@@ -64,7 +64,7 @@ Split the following services on the masters instances. We can review this assign
 | Activity Explorer (SmartSense) | Master #1 |
 | Spark2 History Server (Spark2) | Master #1 |
 |  Spark History Server (Spark)  | Master #1 |
-|           HST Server           | Master #1 |
+|    HST Server (SmartSense)     | Master #1 |
 |        Hue Server (Hue)        | Master #4 |
 |     Hive Metastore (Hive)      | Master #3 |
 |     WebHCat Server (Hive)      | Master #3 |
@@ -81,4 +81,8 @@ todo
 
 ## Customize services list
 
-todo
+Some services need require information from us, in order to work properly.
+
+- [Hive](../Hive/ambari_install_customize.md)
+
+The others services are good with the default parameters, but can also need some custom. Please edit this part if further custom of these services is needed.
