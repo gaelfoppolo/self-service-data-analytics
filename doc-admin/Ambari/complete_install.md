@@ -87,5 +87,6 @@ Some services need require information from us, in order to work properly.
 - [Oozie](../Oozie/ambari_install_customize.md)
 - [Knox](../Knox/ambari_install_customize.md)
 - [SmartSense](../SmartSense/ambari_install_customize.md)
+- [Ambari Metrics](../Ambari Metrics/ambari_install_customize.md)
 
 The others services are good with the default parameters, but can also need some custom. Please edit this part if further custom of these services is needed.
