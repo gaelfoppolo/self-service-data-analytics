@@ -28,13 +28,8 @@ Create the instance, according to the specs in the table. SSH into it and run th
 
 ```sh
 # install requirements
-sudo apt-get install curl
-sudo apt-get install unzip
-sudo apt-get install openssl
-sudo apt-get install tar
-sudo apt-get install wget
-sudo apt-get install python
-sudo apt-get install ntp
+sudo apt-get update
+sudo apt-get install curl unzip openssl tar wget python ntp
 # configure ntp
 sudo update-rc.d ntp defaults
 sudo update-rc.d ntp enable
@@ -87,8 +82,7 @@ SSH into it and run the following commands:
 sudo apt-key adv --recv-keys --keyserver keyserver.ubuntu.com B9733A7A07513CAD
 sudo apt-get update
 # install requirements
-sudo apt-get install ntp
-sudo apt-get install python
+sudo apt-get install ntp python
 # configure ntp
 sudo update-rc.d ntp defaults
 sudo update-rc.d ntp enable
