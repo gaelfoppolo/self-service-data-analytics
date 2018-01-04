@@ -54,10 +54,9 @@ I recommand to install on the three instances that we choose to be our data node
 
 ## Customize services list
 
-At the moment, only two services need some information from us: *Ambari Metrics* and *SmartSense*.
+Some services need require information from us, in order to work properly.
 
-The tabs needing our attention, are demanding the default password of the admin account, to access this service. You can go with **admin** for both of us.
-
-![ambari-services-custom](img/ambari-services-custom.png)
+- [SmartSense](../SmartSense/ambari_install_customize.md)
+- [Ambari Metrics](../Ambari Metrics/ambari_install_customize.md)
 
 The others services are good with the default parameters, but can also need some custom. Please edit this part if further custom of these services is needed.
