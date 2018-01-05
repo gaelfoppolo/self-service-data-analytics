@@ -102,7 +102,7 @@ We need to create and add a new host where we will install Hue server. Here its 
 - type **t2.medium**
 - with **15Gb** of storage
 
-Report to the document [_Add a new host_](./add_new_host.md) to add a new host to Ambari.
+Report to the document [_Add a new host_](../Ambari/add_new_host.md) to add a new host to Ambari.
 
 When done, head to the *Admin > Stack and Versions* tab, scroll until you find **Hue** and click on *Add Service*.
 
