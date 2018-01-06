@@ -117,6 +117,19 @@ https://<public DNS Knox>:8443/gateway/default/yarn/jmx
 https://<public DNS Knox>:8443/gateway/default/sparkhistory
 ```
 
+### HBase UI
+
+```
+    <service>
+        <role>HBASEUI</role>
+        <url>http://{{hbase_master_host}}:{{hbase_master_ui_port}}</url>
+    </service>
+```
+
+```
+https://<public DNS Knox>:8443/gateway/default/hbase/webui/
+```
+
 ## Useful links
 
 https://knox.apache.org/books/knox-0-14-0/user-guide.html
