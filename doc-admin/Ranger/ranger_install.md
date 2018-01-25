@@ -40,7 +40,7 @@ sudo apt-get install libmysql-java
 Then, run the following on Ambari Server:
 
 ```
-ambari-server setup --jdbc-db=mysql --jdbc-driver=/usr/share/java/mysql.jar
+sudo ambari-server setup --jdbc-db=mysql --jdbc-driver=/usr/share/java/mysql.jar
 ```
 
 ## Add the service
