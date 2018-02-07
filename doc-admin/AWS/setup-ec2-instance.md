@@ -1,4 +1,4 @@
-# AWS
+# Setup your first EC2 instance
 
 ## Pre-Requisites
 
@@ -9,7 +9,7 @@
 
 We are going to create an EC2 instance using the latest Ubuntu Server as OS.
 
-###Select instance
+### Select instance
 
 Go to AWS Console, choose the EC2 service. On the EC2 Dashboard, click on **Launch Instance**. You can check *Free tier only* if you like. In the list select the latest Ubuntu Server. Currently, it's 16.04 LTS.
 
@@ -46,8 +46,6 @@ This step lets us define rules regarding the incoming or outgoing access of the 
 Select *Create a new security group* name it as you like (eg: *HadoopSecurityGroup*) and give it a useful description. For the purpose of testing, we are going to open everything to avoid network errors. Configure as the following image:
 
 ![AWS-04](img/AWS-04.png)
-
-*todo: configure the security group with restricting rules*
 
 Finally, click on *Review and Launch*.
 

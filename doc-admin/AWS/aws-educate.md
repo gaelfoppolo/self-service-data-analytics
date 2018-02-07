@@ -8,9 +8,9 @@
 
 The AWS Educate program is Amazon’s global initiative to provide students and educators with the resources needed to greatly accelerate Cloud-related learning endeavors and to help power the workforce of tomorrow. AWS Educate provides grant-based access to AWS, training, and content, while also providing educators and students with a forum for collaboration.
 
-##What benefits?
+## What benefits?
 
-Our university, Aix-Marseille University [is a member](https://s3.amazonaws.com/awseducate-list/AWS_Educate_Institutions.pdf#page=55) of AWS Educate, hence we have **$100 credits each year**. 
+Our university, Aix-Marseille University [is a member](https://s3.amazonaws.com/awseducate-list/AWS_Educate_Institutions.pdf#page=70) of AWS Educate, hence we have **$100 credits each year**. 
 
 ## Compare
 
