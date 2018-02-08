@@ -57,7 +57,7 @@ Assign the **Ranger Admin** et **Ranger Usersync** to the host you choose below.
 
 On the next page, you can custom the services.
 
-###Ranger Admin
+### Ranger Admin
 
 - DB FLAVOR: MySQL
 - Ranger DB Host : localhost
