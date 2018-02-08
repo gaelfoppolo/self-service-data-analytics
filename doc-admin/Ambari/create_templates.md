@@ -120,16 +120,6 @@ Finally, append the contents to `~/.ssh/authorized_keys` on the template slave n
 cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
 ```
 
-We now have our template. Let's create an image of this template.
-
-Back on AWS Console, in the list of instances, select the one we just configure (our template), right-click on it and select **Create an image**.
-
-![create-image](img/create-image.png)
-
-Give an distinguish name and description to your instance and click **Create Image**. You can see your AMI (Amazon Machine Image) just like instances by clicking to **AMIs** on the left menu.
-
-![ami-menu](img/ami-menu.png)
-
-Wait until the status of your image is **available**.
+We now have our template, we can create an image of it, in order to reuse it. Please report to the document [Amazon Managed Image](../AWS/amazon-managed-image.md).
 
 And that's it! 🎉
