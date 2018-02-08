@@ -4,7 +4,7 @@
 
 While installing Hive on Ambari, you'll need to provide information and modify some. At the moment only on Hive Metastore.
 
-#Hive Metastore
+## Hive Metastore
 
 **Database Password**: we recommand to use a strong password, that you keep safely elsewhere. If you just want to try, use a simple password, such as `hive`
 
