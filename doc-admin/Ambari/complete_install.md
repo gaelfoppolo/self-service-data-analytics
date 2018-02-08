@@ -6,21 +6,21 @@ This document contains the information used for the install of a cluster with ev
 
 We will need **13 EC2 instances**, running **Ubuntu Server 16.04 LTS**.
 
-|   Name    |                 Purpose                  |   Type    | Storage |
-| :-------: | :--------------------------------------: | :-------: | ------- |
-|  Ambari   |              Ambari Server               | t2.medium | 15Gb    |
-| Master #1 |          Name Node + ZooKeeper           | t2.medium | 15Gb    |
+|   Name    |                     Purpose                      |   Type    | Storage |
+| :-------: | :----------------------------------------------: | :-------: | ------- |
+|  Ambari   |                  Ambari Server                   | t2.medium | 15Gb    |
+| Master #1 |              Name Node + ZooKeeper               | t2.medium | 15Gb    |
 | Master #2 | Secondary Name Node + ZooKeeper + Ambari Metrics | t2.medium | 15Gb    |
-| Master #3 |      YARN + Map Reduce + ZooKeeper       | t2.medium | 15Gb    |
-| Master #4 |       Spark + Spark 2 + SmartSense       | t2.medium | 15Gb    |
-| Master #5 |           Hive + Oozie + HBase           | t2.medium | 15Gb    |
-| Master #6 |                   Knox                   | t2.medium | 15Gb    |
-| Master #7 |              Atlas + Kafka               | t2.medium | 15Gb    |
-| Master #8 |                   Hue                    | t2.medium | 15Gb    |
-| Client #1 | Data Node + Node Manager + Flume + HBase | t2.medium | 15Gb    |
-| Client #2 | Data Node + Node Manager + Flume + HBase | t2.medium | 15Gb    |
-| Client #3 | Data Node + Node Manager + Flume + HBase | t2.medium | 15Gb    |
-| Client #4 | Data Node + Node Manager + Flume + HBase | t2.medium | 15Gb    |
+| Master #3 |          YARN + Map Reduce + ZooKeeper           | t2.medium | 15Gb    |
+| Master #4 |           Spark + Spark 2 + SmartSense           | t2.medium | 15Gb    |
+| Master #5 |               Hive + Oozie + HBase               | t2.medium | 15Gb    |
+| Master #6 |                       Knox                       | t2.medium | 15Gb    |
+| Master #7 |                  Atlas + Kafka                   | t2.medium | 15Gb    |
+| Master #8 |                       Hue                        | t2.medium | 15Gb    |
+| Client #1 |     Data Node + Node Manager + Flume + HBase     | t2.large  | 40Gb    |
+| Client #2 |     Data Node + Node Manager + Flume + HBase     | t2.large  | 40Gb    |
+| Client #3 |     Data Node + Node Manager + Flume + HBase     | t2.large  | 40Gb    |
+| Client #4 |     Data Node + Node Manager + Flume + HBase     | t2.large  | 40Gb    |
 
 ## Services list
 
@@ -82,7 +82,13 @@ Split the following services on the masters instances. We can review this assign
 
 ## Slaves assignations list
 
-todo
+I recommand to install on the four instances that we choose to be our data nodes (without the *✵* in the list), the following:
+
+- DataNode
+- NodeManager
+- Client
+
+Leave the rest as it is.
 
 ## Customize services list
 
@@ -92,7 +98,6 @@ Some services need require information from us, in order to work properly.
 - [Oozie](../Oozie/ambari_install_customize.md)
 - [Knox](../Knox/ambari_install_customize.md)
 - [SmartSense](../SmartSense/ambari_install_customize.md)
-- [Ambari Metrics](../Ambari Metrics/ambari_install_customize.md)
-- Hue (todo)
+- [Ambari Metrics](../Metrics/ambari_install_customize.md)
 
 The others services are good with the default parameters, but can also need some custom. Please edit this part if further custom of these services is needed.

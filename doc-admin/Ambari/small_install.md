@@ -57,6 +57,6 @@ I recommand to install on the three instances that we choose to be our data node
 Some services need require information from us, in order to work properly.
 
 - [SmartSense](../SmartSense/ambari_install_customize.md)
-- [Ambari Metrics](../Ambari Metrics/ambari_install_customize.md)
+- [Ambari Metrics](../Metrics/ambari_install_customize.md)
 
 The others services are good with the default parameters, but can also need some custom. Please edit this part if further custom of these services is needed.
