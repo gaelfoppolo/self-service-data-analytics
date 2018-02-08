@@ -1,14 +1,18 @@
 # Self service data analytics
 
-// todo : purpose, goal, what it does
+This project is realized as a part of an ESP (End of Study Project) at Polytech Marseille, engineering school. It is led in a collaboration with Capgemini.
+
+The goal is to produce a tool that will extract knowledge from a wide range of raw data and submit this refined knowledge to people who do not have extensive technical skills like managers or business analysts. The product will have to gather, arrange, analyse and publish the information. The treatment will be configured by the user based on his needs.
+
+Our architecture mainly relies on the Hadoop ecosystem, a platform or a collection of frameworks, which solves Big Data problems. The Hadoop ecosystem includes both official Apache open source projects and a wide range of commercial tools and  solutions. You can consider it as a suite which encompasses a number of services (ingesting, storing, analyzing and maintaining) inside it.
 
 ## Architecture
 
-// todo
+The repository is organized as follow:
 
-## Documentation
-
-// todo
+- [doc-admin](./doc-admin/) folder: all the documents regarding administration tasks of the platform (install, configure, etc.).
+- [doc-user](./doc-user/) folder: all the documents regarding usage of the platform (programming, browsing, etc.).
+- [bin](./bin/) folder: all the custom modules we developed.
 
 ## Authors
 
