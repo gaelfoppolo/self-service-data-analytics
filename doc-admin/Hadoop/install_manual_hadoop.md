@@ -1,4 +1,4 @@
-# Hadoop
+# Manual install of Hadoop
 
 ## Pre-Requisites
 
@@ -6,7 +6,7 @@
 
 We are going to create a simple cluster with 4 nodes: a master and three data nodes. Let's do it!
 
-![Hadoop-cluster](img/Hadoop-cluster.png)
+![Hadoop-cluster](img/hadoop-cluster.png)
 
 ##Create a template
 
