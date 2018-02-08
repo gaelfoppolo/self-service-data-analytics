@@ -1,10 +1,8 @@
-
-
 # Add support to a new service
 
 Apache Knox Gateway supports numerous Hadoop services in both Kerberized and Non-Kerberized clusters, such as YARN or Oozie.
 
-However, we decided to use HDP (Horthonworks) stack and all of the services developed and tested by the Apache Knox community are not officially supported by Hortonworks. These features are excluded for a variety of reasons, including insufficient reliability or incomplete test case coverage, declaration of non-production readiness by the community at  large, and feature deviation from Hortonworks best practices. **It's strongly recommande to not use these features in your production environments.**
+However, we decided to use HDP (Horthonworks) stack and all of the services developed and tested by the Apache Knox community are not officially supported by Hortonworks. These features are excluded for a variety of reasons, including insufficient reliability or incomplete test case coverage, declaration of non-production readiness by the community at  large, and feature deviation from Hortonworks best practices. **It's strongly recommand to not use these features in your production environments.**
 
 ## Pre-Requisites
 
