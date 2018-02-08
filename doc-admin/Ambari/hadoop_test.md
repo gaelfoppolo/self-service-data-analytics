@@ -1,4 +1,4 @@
-#Let's test Hadoop!
+# Let's test Hadoop!
 
 Ambari allows us to monitor and manage the services but we cannot use them throught it!
 
